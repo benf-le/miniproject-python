@@ -36,7 +36,7 @@ const Login = () => {
                 // if( typee==='USER') navigate('/')
                 // if( typee==='ADMIN') navigate('/user/admin/products')
 
-                navigate('/user/admin/products')
+                navigate('/user/admin/dashboard')
                 // navigate('/');
 
                 // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn

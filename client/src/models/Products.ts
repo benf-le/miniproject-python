@@ -4,11 +4,7 @@ export interface Products {
     imageUrl: string
     name: string
     price: number
-    forSale: boolean
-
-    size: string
     countInStock: number
     description: string
-    ingredient: string
-    reviews: string
+    category: string
 }

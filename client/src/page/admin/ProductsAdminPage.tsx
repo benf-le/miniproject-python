@@ -16,7 +16,7 @@ function ProductsAdminPage() {
         const getProductsDetail = async () => {
 
 
-            fetch(`http://127.0.0.1:5000/products`)
+                fetch(`http://127.0.0.1:5000/products`)
                 .then(response => {
                     response.json()
                         .then(data => setProductsAdmin(data))
@@ -27,6 +27,7 @@ function ProductsAdminPage() {
         }
         getProductsDetail()
     }, [])
+
 
     const deleteProduct = async ({id}: { id: string }) => {
         try {
@@ -89,8 +90,8 @@ function ProductsAdminPage() {
 
                                 <th>Count In Stock</th>
                                 <th>Description</th>
-                                <th>Ingredient</th>
-                                <th>Reviews</th>
+                                <th>Category</th>
+
 
                             </tr>
                             </thead>
@@ -104,8 +105,7 @@ function ProductsAdminPage() {
                                     <td>{item.price}</td>
                                     <td>{item.countInStock}</td>
                                     <td>{item.description}</td>
-                                    <td>{item.ingredient}</td>
-                                    <td>{item.reviews}</td>
+                                    <td>{item.category}</td>
                                     <div className="py-5">
                                         <Link to={`/user/admin/update-product/${item.id}`}>
                                         <button className="btn">Edit</button>

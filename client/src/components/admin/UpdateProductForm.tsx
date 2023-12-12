@@ -18,9 +18,10 @@ const UpdateProductForm = () => {
         imageUrl:'' ,
         price:'',
         countInStock: '',
-        description:''
+        description:'',
+        category: '',
 
-    })
+    });
 
 
     const [productsAdmin, setProductsAdmin] = useState<Products[]>([])
@@ -50,30 +51,63 @@ const UpdateProductForm = () => {
 
         error.preventDefault() //chặn reload trang
         try {
-            
-                const response = await axios.put(`http://127.0.0.1:5000/update-product/${id}`, product)
+
+            const response = await axios.put(`http://127.0.0.1:5000/update-product/${id}`, product)
 
 
-                if (response.status === 200) {
+            if (response.status === 200) {
 
-                    toast.success("Product updated successfully")
-                    navigate('/user/admin/products');
+                toast.success("Product updated successfully")
+                navigate('/user/admin/products');
 
-                    // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
-                } else {
-                    // Xử lý lỗi không rõ ràng từ backend
-                    setError('Something went wrong. Please try again later.');
-                
+                // window.location.reload(); // Tùy chỉnh theo nhu cầu của bạn
+            } else {
+                // Xử lý lỗi không rõ ràng từ backend
+                setError('Something went wrong. Please try again later.');
+
 
 
             }
         } catch (error) {
-            
 
-             setError('Something went wrong. Please try again later.'); // Lỗi không rõ ràng không có phản hồi từ API
-            
+
+            setError('Something went wrong. Please try again later.'); // Lỗi không rõ ràng không có phản hồi từ API
+
         }
     }
+
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5000/product/${id}`);
+
+                const productData = response.data[0]; // Truy cập dữ liệu chi tiết sản phẩm
+
+                // Xử lý giá trị mặc định cho từng trường
+                const defaultValues = {
+                    category: '',
+                    countInStock: '',
+                    description: '',
+                    imageUrl: '',
+                    name: '',
+                    price: '',
+                };
+
+                // Merges giá trị mặc định với dữ liệu từ API
+                const updatedProduct = { ...defaultValues, ...productData };
+
+                console.log(updatedProduct); // Kiểm tra giá trị đã được cập nhật
+
+                setProduct(updatedProduct); // Cập nhật state
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+
+
+        fetchProduct();
+    }, [id]);
 
 
 
@@ -100,7 +134,7 @@ const UpdateProductForm = () => {
                                     name="lastName"
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, name: e.target.value})}
-
+                                    value={product.name}
                                 />
                             </div>
                             <div className="form-control py-1">
@@ -111,7 +145,7 @@ const UpdateProductForm = () => {
                                     name="imageUrl"
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, imageUrl: e.target.value})}
-
+                                    value={product.imageUrl}
                                 />
                             </div>
                             <div className="form-control py-1">
@@ -123,8 +157,7 @@ const UpdateProductForm = () => {
 
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, price: e.target.value})}
-
-                                    // onChange={(e) => setPassword({...password, password: e.target.value})}
+                                    value={product.price}
 
                                 />
                             </div>
@@ -136,6 +169,7 @@ const UpdateProductForm = () => {
                                     name="countInStock"
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, countInStock: e.target.value})}
+                                    value={product.countInStock}
 
                                 />
                             </div>
@@ -147,6 +181,19 @@ const UpdateProductForm = () => {
                                     name="description"
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, description: e.target.value})}
+                                    value={product.description}
+
+                                />
+                            </div>
+                            <div className="form-control py-1">
+                                <input
+                                    id="category"
+                                    type="text"
+                                    placeholder="Category"
+                                    name="category"
+                                    className="input input-bordered"
+                                    onChange={(e) => setProduct({...product, category: e.target.value})}
+                                    value={product.category}
 
                                 />
                             </div>
@@ -163,4 +210,4 @@ const UpdateProductForm = () => {
     );
 }
 
-export default UpdateProductForm;
+export default UpdateProductForm

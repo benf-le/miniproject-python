@@ -14,7 +14,8 @@ const AddProductForm = () => {
         imageUrl:'' ,
         price:'',
         countInStock: '',
-        description:''
+        description:'',
+        category:''
 
     })
     
@@ -121,6 +122,16 @@ const AddProductForm = () => {
                                     className="input input-bordered"
                                     onChange={(e) => setProduct({...product, description: e.target.value})}
 
+                                />
+                            </div>
+                            <div className="form-control py-1">
+                                <input
+                                    id="category"
+                                    type="text"
+                                    placeholder="Category"
+                                    name="category"
+                                    className="input input-bordered"
+                                    onChange={(e) => setProduct({...product, category: e.target.value})}
                                 />
                             </div>
                             <p className="text-center text-red-500">{error}</p>

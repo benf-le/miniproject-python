@@ -11,6 +11,7 @@ import AddProductPage from "../page/admin/AddProductPage.tsx";
 import UpdateProductPage from "../page/admin/UpdateProductPage.tsx";
 import UsersAdminPage from "../page/admin/UsersAdminPage.tsx";
 import UpdateUserPage from "../page/admin/UpdateUserPage.tsx";
+import Dashboard from "../page/admin/Dashboard.tsx";
 
 export const routes = [
     {
@@ -39,6 +40,11 @@ export const routes = [
         isShowHeader: true
     },
 
+    {
+        path: '/user/admin/dashboard',
+        page: Dashboard,
+        isShowHeader: false
+    },
     {
         path: '/user/admin/products',
         page: ProductsAdminPage,
