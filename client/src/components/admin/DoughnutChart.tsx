@@ -28,9 +28,13 @@ function DoughnutChart() {
 
                 const categories = Array.from(new Set(products.map((product) => product.category)));
 
+                console.log(categories)
+
                 const categoryCounts = categories.map((category) => {
                     return products.filter((product) => product.category === category).length;
                 });
+
+                console.log(categoryCounts)
 
                 const backgroundColors = [
                     'rgba(255, 99, 132, 0.8)',
@@ -64,6 +68,8 @@ function DoughnutChart() {
             legend: {
                 position: 'top',
             },
+
+
         },
     };
 

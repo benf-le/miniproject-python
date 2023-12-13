@@ -1,5 +1,5 @@
 
-import  {useState} from "react";
+import {useEffect, useState} from "react";
 import axios from "axios";
 
 
@@ -51,6 +51,38 @@ const UpdateUserForm = () => {
 
 
 
+    useEffect(() => {
+        const fetchProduct = async () => {
+            try {
+                const response = await axios.get(`http://127.0.0.1:5001/user/${id}`);
+
+                const productData = response.data[0]; // Truy cập dữ liệu chi tiết sản phẩm
+
+                // Xử lý giá trị mặc định cho từng trường
+                const defaultValues = {
+                    name: '',
+                    email: '',
+                };
+
+                // Merges giá trị mặc định với dữ liệu từ API
+                const updatedProduct = { ...defaultValues, ...productData };
+
+                console.log(updatedProduct); // Kiểm tra giá trị đã được cập nhật
+
+                setProduct(updatedProduct); // Cập nhật state
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+
+
+        fetchProduct();
+    }, [id]);
+
+
+
+
     return (
         <div>
 
@@ -71,6 +103,7 @@ const UpdateUserForm = () => {
                                     placeholder="Name"
                                     name="lastName"
                                     className="input input-bordered"
+                                    value={product.name}
                                     onChange={(e) => setProduct({...product, name: e.target.value})}
 
                                 />
@@ -82,6 +115,7 @@ const UpdateUserForm = () => {
                                     placeholder="Email"
                                     name="email"
                                     className="input input-bordered"
+                                    value={product.email}
                                     onChange={(e) => setProduct({...product, email: e.target.value})}
 
                                 />
